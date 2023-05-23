@@ -22,7 +22,11 @@ public class ClientGuiView {
         textField.setEditable(false);
         messages.setEditable(false);
         users.setEditable(false);
-
+        messages.setBackground(new Color(0x123456));
+        users.setBackground(Color.ORANGE);
+        textField.setBackground(Color.GRAY);
+        textField.setSelectedTextColor(Color.ORANGE);
+        frame.getContentPane().setBackground(new Color(0x123456));
         frame.getContentPane().add(textField, BorderLayout.NORTH);
         frame.getContentPane().add(new JScrollPane(messages), BorderLayout.WEST);
         frame.getContentPane().add(new JScrollPane(users), BorderLayout.EAST);
