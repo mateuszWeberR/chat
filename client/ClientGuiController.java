@@ -1,8 +1,13 @@
 package com.codegym.task.task30.task3008.client;
 
+import java.io.IOException;
+
 public class ClientGuiController extends Client {
     private ClientGuiModel model = new ClientGuiModel();
     private ClientGuiView view = new ClientGuiView(this);
+
+    public ClientGuiController() throws IOException {
+    }
 
     public class GuiSocketThread extends SocketThread {
         @Override
@@ -60,6 +65,10 @@ public class ClientGuiController extends Client {
     }
 
     public static void main(String[] args) {
-        new ClientGuiController().run();
+        try {
+            new ClientGuiController().run();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

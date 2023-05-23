@@ -1,9 +1,12 @@
 package com.codegym.task.task30.task3008.client;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
 public class ClientGuiView {
     private final ClientGuiController controller;
@@ -13,23 +16,25 @@ public class ClientGuiView {
     private JTextArea messages = new JTextArea(10, 50);
     private JTextArea users = new JTextArea(10, 10);
 
-    public ClientGuiView(ClientGuiController controller) {
+    public ClientGuiView(ClientGuiController controller) throws IOException {
         this.controller = controller;
         initView();
     }
 
-    private void initView() {
+    private void initView() throws IOException {
         textField.setEditable(false);
         messages.setEditable(false);
         users.setEditable(false);
-        messages.setBackground(new Color(0x123456));
+        messages.setBackground(Color.LIGHT_GRAY);
         users.setBackground(Color.ORANGE);
-        textField.setBackground(Color.GRAY);
+        textField.setBackground(Color.YELLOW);
         textField.setSelectedTextColor(Color.ORANGE);
         frame.getContentPane().setBackground(new Color(0x123456));
         frame.getContentPane().add(textField, BorderLayout.NORTH);
         frame.getContentPane().add(new JScrollPane(messages), BorderLayout.WEST);
         frame.getContentPane().add(new JScrollPane(users), BorderLayout.EAST);
+
+
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

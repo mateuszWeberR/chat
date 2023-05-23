@@ -57,8 +57,10 @@ public class Server {
                 if (response.getData() == null || response.getData().equals(""))
                     continue;
                 for (String name : connectionMap.keySet()) {
-                    if (name.equals(response.getData()))
+                    if (name.equals(response.getData())) {
+                        ConsoleHelper.writeMessage("Some user use this name, try again");
                         continue first;
+                    }
                 }
 
                 isValid = true;
