@@ -101,6 +101,7 @@ public class Server {
     }
 
     public static void main(String[] args) throws IOException {
+        ConsoleHelper.writeMessage("Server port number:");
         int serverPort = ConsoleHelper.readInt();
         ServerSocket serverSocket = null;
         try {
