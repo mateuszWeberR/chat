@@ -1,11 +1,19 @@
 package com.codegym.task.task30.task3008.client;
 
+import com.codegym.task.task24.task2410.Iterator;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class BotClient extends Client {
+    private List<String> jokes = jokesGenerator();
 
     public class BotSocketThread extends SocketThread {
         @Override
@@ -46,6 +54,8 @@ public class BotClient extends Client {
                 } else if (separated[1].equals("seconds")) {
                     sendTextMessage("Information for " + separated[0] + ": " +
                             new SimpleDateFormat("s").format(date));
+                } else if (separated[1].equals("joke")) {
+                    sendTextMessage(getRandomJoke(jokes));
                 }
             }
         }
@@ -70,5 +80,26 @@ public class BotClient extends Client {
 
     public static void main(String[] args) {
         new BotClient().run();
+    }
+
+    public List<String> jokesGenerator() {
+        List<String> list = new ArrayList<>();
+        BufferedReader reader;
+        try {
+            reader = new BufferedReader(new FileReader
+                    ("/home/mati/IdeaProjects/GymTasks/CodeGymTasks/3.JavaMultithreading/src/com/codegym/task/task30/task3008/files/jokes.txt"));
+            while (reader.ready()) {
+                list.add(reader.readLine());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    public String getRandomJoke(List<String> jokes) {
+        int bound = jokes.size();
+        int number = new Random().nextInt(bound);
+        return jokes.get(number);
     }
 }

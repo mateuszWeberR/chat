@@ -29,6 +29,7 @@ public class ClientGuiView {
         users.setBackground(Color.ORANGE);
         textField.setBackground(Color.YELLOW);
         textField.setSelectedTextColor(Color.ORANGE);
+
         frame.getContentPane().setBackground(new Color(0x123456));
         frame.getContentPane().add(textField, BorderLayout.NORTH);
         frame.getContentPane().add(new JScrollPane(messages), BorderLayout.WEST);
@@ -43,6 +44,7 @@ public class ClientGuiView {
             public void actionPerformed(ActionEvent e) {
                 controller.sendTextMessage(textField.getText());
                 textField.setText("");
+                textField.setCaretPosition(textField.getDocument().getLength());
             }
         });
     }
