@@ -62,7 +62,6 @@ public class Server {
                         continue first;
                     }
                 }
-
                 isValid = true;
                 connectionMap.put(response.getData(), connection);
                 connection.send(new Message(MessageType.NAME_ACCEPTED));
