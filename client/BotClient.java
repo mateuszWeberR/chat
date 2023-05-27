@@ -1,16 +1,10 @@
 package com.codegym.task.task30.task3008.client;
 
-import com.codegym.task.task24.task2410.Iterator;
-
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class BotClient extends Client {
     private List<String> jokes = jokesGenerator();

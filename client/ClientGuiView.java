@@ -35,7 +35,6 @@ public class ClientGuiView {
         frame.getContentPane().add(new JScrollPane(messages), BorderLayout.WEST);
         frame.getContentPane().add(new JScrollPane(users), BorderLayout.EAST);
 
-
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
@@ -44,7 +43,6 @@ public class ClientGuiView {
             public void actionPerformed(ActionEvent e) {
                 controller.sendTextMessage(textField.getText());
                 textField.setText("");
-                textField.setCaretPosition(textField.getDocument().getLength());
             }
         });
     }

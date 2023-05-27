@@ -50,9 +50,9 @@ public class Client {
         protected void clientMainLoop() throws IOException, ClassNotFoundException {
             while (true) {
                 Message message = connection.receive();
-                if (message.getType() == MessageType.TEXT)
+                if (message.getType() == MessageType.TEXT) {
                     processIncomingMessage(message.getData());
-                else if (message.getType() == MessageType.USER_ADDED)
+                } else if (message.getType() == MessageType.USER_ADDED)
                     informAboutAddingNewUser(message.getData());
                 else if (message.getType() == MessageType.USER_REMOVED)
                     informAboutDeletingNewUser(message.getData());

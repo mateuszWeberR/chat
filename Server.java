@@ -81,22 +81,46 @@ public class Server {
             while (true) {
                 Message received = connection.receive();
                 if (received.getType() == MessageType.TEXT) {
-                    String text = userName + ": " + received.getData();
-                    sendBroadcastMessage(new Message(MessageType.TEXT, text));
+                    // for private message
+                    if (received.getData().startsWith("/private")) {
+                        String[] splitted = received.getData().split(" ");
+                        StringBuilder sb = new StringBuilder();
+                        for (int i = 2; i < splitted.length; i++) {
+                            sb.append(splitted[i]).append(" ");
+                        }
+                        String text = userName + "(Private Message): " + sb.toString().trim();
+                        sendPrivateMessage(new Message(MessageType.TEXT, text), splitted[1]);
+                        connection.send(new Message(MessageType.TEXT, text));
+                    } else {
+                        String text = userName + ": " + received.getData();
+                        sendBroadcastMessage(new Message(MessageType.TEXT, text));
+                    }
                 } else {
                     ConsoleHelper.writeMessage("Something gone wrong: it's not text message");
                 }
             }
         }
-    }
 
-    public static void sendBroadcastMessage(Message message) {
-        try {
-            for (Connection connection : connectionMap.values()) {
-                connection.send(message);
+        public static void sendBroadcastMessage(Message message) {
+            try {
+                for (Connection connection : connectionMap.values()) {
+                    connection.send(message);
+                }
+            } catch (IOException e) {
+                System.out.println("Message couldn't be sent: " + e);
             }
-        } catch (IOException e) {
-            System.out.println("Message couldn't be sent: " + e);
+        }
+
+        public static void sendPrivateMessage(Message message, String name) {
+            try {
+                for (String user : connectionMap.keySet()) {
+                    if (user.equals(name)) {
+                        connectionMap.get(user).send(message);
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("Private Message couldn't be sent: " + e);
+            }
         }
     }
 
@@ -118,6 +142,4 @@ public class Server {
             serverSocket.close();
         }
     }
-
-
 }
